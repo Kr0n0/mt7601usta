@@ -27,7 +27,8 @@ include $(RT28xx_DIR)/os/linux/config.mk
 RTMP_SRC_DIR = $(RT28xx_DIR)/RT$(MODULE)
 
 #PLATFORM: Target platform
-PLATFORM = PC
+#PLATFORM = PC
+PLATFORM = ODROID
 #PLATFORM = SYNOLOGY
 #PLATFORM = RASPBERRYPI
 #PLATFORM = 5VT
@@ -120,6 +121,19 @@ ifeq ($(CROSS_COMPILE),)
 CROSS_COMPILE = /home/zack/rasp/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-
 endif
 endif
+
+ifeq ($(PLATFORM), ODROID)
+ifeq ($(LINUX_SRC),)
+LINUX_SRC = /home/kr0n0/Desarrollo/ODroid-XU4/Kernel_Android.git/
+endif
+ifeq ($(ARCH),)
+ARCH = arm
+endif
+ifeq ($(CROSS_COMPILE),)
+CROSS_COMPILE = arm-eabi-
+endif
+endif
+
 
 ifeq ($(PLATFORM),5VT)
 LINUX_SRC = /home/ralink-2860-sdk-5vt-distribution/linux-2.6.17
