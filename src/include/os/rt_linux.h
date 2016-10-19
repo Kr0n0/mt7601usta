@@ -74,7 +74,9 @@
 #ifdef RT_CFG80211_SUPPORT
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,28))
 #include <net/mac80211.h>
+#ifndef EXT_BUILD_CHANNEL_LIST
 #define EXT_BUILD_CHANNEL_LIST		/* must define with CRDA */
+#endif
 #else /* LINUX_VERSION_CODE */
 #undef RT_CFG80211_SUPPORT
 #endif /* LINUX_VERSION_CODE */
@@ -279,9 +281,9 @@ typedef struct file* RTMP_OS_FD;
 
 typedef struct _OS_FS_INFO_
 {
-#ifdef SYNOLOGY || LINUX_VERSION_CODE >= KERNEL_VERSION(3,12,0) 
-	uid_t				fsuid;
-	gid_t				fsgid;
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,12,0)
+        uid_t                           fsuid;
+        gid_t                           fsgid;
 #else
 	kuid_t				fsuid;
 	kgid_t				fsgid;
